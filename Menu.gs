@@ -4,6 +4,8 @@
 function crearMenu() {
   const ui = SpreadsheetApp.getUi();
   ui.createMenu('SantiagoNatural')
+      .addItem('Configurar/Verificar Hojas', 'configurarHojas')
+      .addSeparator()
       .addItem('Iniciar día', 'iniciarDiaOperativo')
       .addSeparator()
       .addItem('Generar Listas', 'calcularTodo')
