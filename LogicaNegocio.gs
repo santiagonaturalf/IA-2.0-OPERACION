@@ -41,10 +41,10 @@ function calcularTodo() {
  */
 function escribirHojaAdquisicion(adquisicion) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet = ss.getSheetByName(SHEET_ADQUISICION);
+  let sheet = ss.getSheetByName(C.SHEET_ADQUISICION);
 
   if (!sheet) {
-    sheet = ss.insertSheet(SHEET_ADQUISICION);
+    sheet = ss.insertSheet(C.SHEET_ADQUISICION);
   }
 
   sheet.clear();
@@ -180,10 +180,10 @@ function calcularDemandaPB(demandaEnvasado, skuMap) {
  */
 function calcularDemandaEnvasado() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = ss.getSheetByName(SHEET_ORDERS);
+  const sheet = ss.getSheetByName(C.SHEET_ORDERS);
 
   if (!sheet) {
-    SpreadsheetApp.getUi().alert(`La hoja "${SHEET_ORDERS}" no fue encontrada.`);
+    SpreadsheetApp.getUi().alert(`La hoja "${C.SHEET_ORDERS}" no fue encontrada.`);
     return null;
   }
 
@@ -230,10 +230,10 @@ function calcularDemandaEnvasado() {
  */
 function escribirHojaEnvasado(demandaEnvasado) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet = ss.getSheetByName(SHEET_ENVASADO);
+  let sheet = ss.getSheetByName(C.SHEET_ENVASADO);
 
   if (!sheet) {
-    sheet = ss.insertSheet(SHEET_ENVASADO);
+    sheet = ss.insertSheet(C.SHEET_ENVASADO);
   }
 
   // Limpiar hoja

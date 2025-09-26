@@ -10,7 +10,7 @@
  */
 function limpiarHojasOperativas() {
   const ui = SpreadsheetApp.getUi();
-  const hojasALimpiar = [SHEET_ORDERS, SHEET_ENVASADO, SHEET_ADQUISICION];
+  const hojasALimpiar = [C.SHEET_ORDERS, C.SHEET_ENVASADO, C.SHEET_ADQUISICION];
 
   let hojasLimpiadas = [];
   let hojasNoEncontradas = [];

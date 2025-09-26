@@ -39,11 +39,11 @@ function configurarHojas() {
  */
 function configurarHojasOperacion(ss) {
   const hojas = [
-    { nombre: SHEET_ORDERS, headers: ['Fecha', 'Cliente', 'Producto (NP)', 'Cantidad', 'Unidad Venta (UMV)', 'Precio', 'Estado'] },
-    { nombre: SHEET_SKU, headers: ['Nombre Producto (NP)', 'Producto Base (PB)', 'Cantidad Venta', 'Unidad Venta (UMV)', 'Formato Adq.', 'Cantidad Adq.', 'Unidad Adq. (UMA)', 'Categoría', 'Proveedor', 'Teléfono Prov.', 'UMPB', 'Merma%', 'Stock de Seguridad'] },
-    { nombre: SHEET_STOCK, headers: ['Producto Base (PB)', 'Stock Actual', 'Unidad (UMPB)', 'Fecha Snapshot'] },
-    { nombre: SHEET_ENVASADO, headers: ['Producto (NP)', 'Cantidad a Envasar', 'Unidad (UMV)'] },
-    { nombre: SHEET_ADQUISICION, headers: ['Producto Base (PB)', 'Demanda Neta', 'Lote de Compra', '# Lotes a Comprar', 'Total a Comprar', 'Unidad (UMPB)'] }
+    { nombre: C.SHEET_ORDERS, headers: ['Fecha', 'Cliente', 'Producto (NP)', 'Cantidad', 'Unidad Venta (UMV)', 'Precio', 'Estado'] },
+    { nombre: C.SHEET_SKU, headers: ['Nombre Producto (NP)', 'Producto Base (PB)', 'Cantidad Venta', 'Unidad Venta (UMV)', 'Formato Adq.', 'Cantidad Adq.', 'Unidad Adq. (UMA)', 'Categoría', 'Proveedor', 'Teléfono Prov.', 'UMPB', 'Merma%', 'Stock de Seguridad'] },
+    { nombre: C.SHEET_STOCK, headers: ['Producto Base (PB)', 'Stock Actual', 'Unidad (UMPB)', 'Fecha Snapshot'] },
+    { nombre: C.SHEET_ENVASADO, headers: ['Producto (NP)', 'Cantidad a Envasar', 'Unidad (UMV)'] },
+    { nombre: C.SHEET_ADQUISICION, headers: ['Producto Base (PB)', 'Demanda Neta', 'Lote de Compra', '# Lotes a Comprar', 'Total a Comprar', 'Unidad (UMPB)'] }
   ];
 
   let creadas = [];
@@ -76,8 +76,8 @@ function configurarHojasOperacion(ss) {
  */
 function configurarHojasHistorial(ss) {
   const hojas = [
-    { nombre: SHEET_ADQUISICIONES_HISTORIAL, formula: FORMULA_ADQUISICIONES },
-    { nombre: SHEET_INVENTARIO_HISTORICO, formula: FORMULA_INVENTARIO }
+    { nombre: C.SHEET_ADQUISICIONES_HISTORIAL, formula: C.FORMULA_ADQUISICIONES },
+    { nombre: C.SHEET_INVENTARIO_HISTORICO, formula: C.FORMULA_INVENTARIO }
   ];
 
   let creadas = [];
