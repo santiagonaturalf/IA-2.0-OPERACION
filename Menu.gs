@@ -7,5 +7,7 @@ function crearMenu() {
   SpreadsheetApp.getUi()
       .createMenu('Panel de Operaciones')
       .addItem('Mostrar Panel', 'showSidebar')
+      .addSeparator()
+      .addItem('🛠️ Configurar Hojas', 'configurarHojas')
       .addToUi();
 }

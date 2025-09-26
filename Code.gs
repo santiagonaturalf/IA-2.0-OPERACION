@@ -10,7 +10,6 @@
  * Muestra la barra lateral y crea el menú personalizado.
  */
 function onOpen() {
-  configurarHojas();
   showSidebar();
   crearMenu();
 }
