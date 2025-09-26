@@ -4,11 +4,12 @@
 function crearMenu() {
   const ui = SpreadsheetApp.getUi();
   ui.createMenu('SantiagoNatural')
-      .addItem('Configurar/Verificar Hojas', 'configurarHojas')
+      .addSubMenu(ui.createMenu('Configuración')
+          .addItem('Verificar Hojas de Operación', 'configurarHojas')
+          .addItem('Configurar Hojas de Historial', 'configurarImportesHistoricos'))
       .addSeparator()
-      .addItem('Iniciar día', 'iniciarDiaOperativo')
-      .addSeparator()
-      .addItem('Generar Listas', 'calcularTodo')
+      .addItem('1. Iniciar día (Limpiar Orders)', 'iniciarDiaOperativo')
+      .addItem('2. Generar Listas de Envasado y Adquisición', 'calcularTodo')
       .addToUi();
 }
 
