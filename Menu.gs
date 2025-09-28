@@ -1,4 +1,12 @@
 function onOpen() {
+  // Primero, asegurar que las fórmulas base de la hoja de Stock estén correctas.
+  try {
+    repararFormulasStock();
+  } catch (e) {
+    // No detener la carga del menú por un error aquí. Registrar en logs para depuración.
+    console.error('Error al intentar reparar fórmulas de Stock en onOpen: ' + e.message);
+  }
+
   const ui = SpreadsheetApp.getUi();
   try {
     ui.createMenu('Panel de Operaciones')
@@ -9,6 +17,7 @@ function onOpen() {
       .addItem('Mostrar Panel',                'mostrarPanelOperaciones')
       .addSeparator()
       .addItem('🛠️ Configurar Hojas', 'configurarHojas')
+      .addItem('Reparar Fórmulas (Stock)', 'repararFormulasStock') // Opción para ejecución manual
       .addToUi();
 
     // Abre el panel lateral al cargar
