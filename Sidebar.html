@@ -1,77 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <base target="_top">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 10px;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background-color: #f8f9fa;
-      cursor: pointer;
-      text-align: left;
-    }
-    button:hover {
-      background-color: #e9ecef;
-    }
-    .header {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 10px;
-      color: #4285f4;
-    }
-    .description {
-      font-size: 12px;
-      color: #666;
-      margin-top: -8px;
-      margin-bottom: 10px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">Operaciones Diarias</div>
-
-    <div>
-      <button onclick="google.script.run.withSuccessHandler(showSuccess).withFailureHandler(showError).limpiarHojasOperativas()">1. Limpiar Día Anterior</button>
-      <div class="description">Borra los datos de Orders, Envasado y Adquisición para empezar de cero.</div>
-    </div>
-
-    <div>
-      <button onclick="google.script.run.withSuccessHandler(showSuccess).withFailureHandler(showError).calcularTodo()">2. Generar Listas</button>
-      <div class="description">Calcula y genera las listas de Envasado y Adquisición a partir de los datos en Orders.</div>
-    </div>
-
-    <hr>
-
-    <div>
-      <button onclick="google.script.run.withSuccessHandler(showSuccess).withFailureHandler(showError).configurarHojas()">Configurar Hojas</button>
-      <div class="description">Verifica y/o crea todas las hojas necesarias (operativas e históricas).</div>
-    </div>
-
-  </div>
-
-  <script>
-    function showSuccess(message) {
-      // La función llamada desde el botón ya muestra su propia alerta.
-      // Podemos usar esto para logging o una notificación más sutil si se desea.
-      console.log(message || "Operación completada con éxito.");
-    }
-
-    function showError(error) {
-      google.script.run.showAlert('Error', error.message);
-    }
-  </script>
-</body>
+  <body style="font-family:system-ui; padding:12px;">
+    <h3>Menú Principal</h3>
+    <button onclick="run('limpiarDiaAnterior')">Limpiar día anterior</button>
+    <br><br>
+    <button onclick="run('generarListasAdquisiciones')">Generar Lista de Adquisiciones</button>
+    <br><br>
+    <button onclick="run('generarListaEnvasado')">Generar Lista de Envasado</button>
+    <script>
+      function run(fn){
+        google.script.run
+          .withSuccessHandler(()=>alert('✓ Listo'))
+          .withFailureHandler(e=>alert('✗ Error: '+e.message))
+          [fn]();
+      }
+    </script>
+  </body>
 </html>

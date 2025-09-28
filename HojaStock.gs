@@ -1,34 +1,42 @@
-/**
- * Gestiona las operaciones relacionadas con la hoja "Stock".
- * Esta hoja contiene el inventario actual de los Productos Base (PB).
- */
+function validarStockYAbortarSiNoCumple({ minProductos = 10, maxHoras = 48 } = {}) {
+  const ss = SpreadsheetApp.getActive();
+  const sh = ss.getSheetByName(C.SHEET_STOCK);
+  if (!sh) throw new Error(`No existe la hoja "${C.SHEET_STOCK}".`);
+  if (sh.getLastRow() <= 1) throw new Error(`"${C.SHEET_STOCK}" está VACÍA.`);
 
-/**
- * Lee la hoja "Stock" y devuelve los niveles de inventario como un objeto.
- * Se asume que el stock ya está en la unidad canónica (UMPB).
- *
- * @returns {Object} Un objeto donde cada clave es un PB y el valor es la cantidad en stock.
- */
-function obtenerStockActual() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = ss.getSheetByName(SHEET_STOCK);
+  const values = sh.getRange(2,1, sh.getLastRow()-1, 4).getValues(); // A:D
+  const setP = new Set();
+  let masReciente = null;
 
-  if (!sheet) {
-    SpreadsheetApp.getUi().alert(`La hoja de inventario "${SHEET_STOCK}" no fue encontrada. Se asumirá stock 0 para todos los productos.`);
-    return {}; // Devuelve un objeto vacío si la hoja no existe
+  for (const [prod, , , ts] of values) {
+    const p = String(prod||'').trim();
+    if (p) setP.add(p);
+    const f = ts instanceof Date ? ts : (ts ? new Date(ts) : null);
+    if (f && (!masReciente || f > masReciente)) masReciente = f;
   }
+  if (setP.size < minProductos) throw new Error(`Stock insuficiente: ${setP.size} productos (<${minProductos}).`);
+  if (!masReciente) throw new Error(`Stock sin fecha válida (col D).`);
+  const horas = (Date.now() - masReciente.getTime())/36e5;
+  if (horas > maxHoras) throw new Error(`Snapshot de Stock desactualizado: ${horas.toFixed(1)}h (>${maxHoras}h).`);
+}
 
-  const data = sheet.getRange(2, 1, sheet.getLastRow() - 1, 2).getValues(); // Asume 2 columnas: PB y Cantidad
-  const stock = {};
+function obtenerStockActual() {
+  // Asume que validarStockYAbortarSiNoCumple() ya se llamó antes
+  const ss = SpreadsheetApp.getActive();
+  const sh = ss.getSheetByName(C.SHEET_STOCK);
+  const rows = sh.getLastRow()-1;
+  const values = sh.getRange(2,1, rows, 4).getValues();
 
-  data.forEach(row => {
-    const pb = row[0];
-    const cantidad = parseFloat(row[1]);
-
-    if (pb && !isNaN(cantidad)) {
-      stock[pb] = cantidad;
-    }
-  });
-
-  return stock;
+  const mapa = new Map();
+  for (const [producto, stock, unidad, ts] of values) {
+    const key = String(producto||'').trim();
+    if (!key) continue;
+    mapa.set(key.toLowerCase(), {
+      producto: key,
+      stock: Number(stock||0),
+      unidad: unidad||'',
+      ts: ts||null,
+    });
+  }
+  return mapa;
 }
