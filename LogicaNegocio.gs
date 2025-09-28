@@ -99,7 +99,11 @@ function calcularAdquisicion(demandaPB, stockActual, skuMap) {
 
   for (const pb in demandaPB) {
     const demandaBruta = demandaPB[pb];
-    const stock = stockActual[pb] || 0; // Si no hay stock registrado, se asume 0
+
+    // Normalizar el nombre del producto para la búsqueda en el Map de stock.
+    const pbNormalizado = String(pb).trim().toLowerCase();
+    const stockInfo = stockActual.get(pbNormalizado);
+    const stock = stockInfo ? stockInfo.stock : 0; // Obtener el valor de stock del objeto.
 
     // D_PB_neto = max(0, D_PB - Stock)
     // Se omite merma y stock de seguridad por ahora.
