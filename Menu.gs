@@ -17,7 +17,6 @@ function onOpen() {
       .addItem('Mostrar Panel',                'mostrarPanelOperaciones')
       .addSeparator()
       .addItem('🛠️ Configurar Hojas', 'configurarHojas')
-      .addItem('Reparar Fórmulas (Stock)', 'repararFormulasStock') // Opción para ejecución manual
       .addToUi();
 
     // Abre el panel lateral al cargar
